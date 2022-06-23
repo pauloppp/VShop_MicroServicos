@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop_MicroServico.ProdutoAPI", "VShop_MicroServicos.ProdutoAPI\VShop_MicroServico.ProdutoAPI.csproj", "{F45DC740-8FC6-4423-90DE-47BD9B91682B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop_MicroServico.ProdutoWEB", "VShop_MicroServico.ProdutoWEB\VShop_MicroServico.ProdutoWEB.csproj", "{AC051B0F-F43C-43B0-A852-69518FDD2B56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BACK_END", "BACK_END", "{CBFC6510-4E83-4746-A2DE-0FFA1B0D6C93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FRONT_END", "FRONT_END", "{7152E2C4-565C-49EF-B819-BA7FFF9B3470}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VShop_MicroServico.IdentityServer", "VShop_MicroServico.IdentityServer\VShop_MicroServico.IdentityServer.csproj", "{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F45DC740-8FC6-4423-90DE-47BD9B91682B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45DC740-8FC6-4423-90DE-47BD9B91682B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45DC740-8FC6-4423-90DE-47BD9B91682B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45DC740-8FC6-4423-90DE-47BD9B91682B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC051B0F-F43C-43B0-A852-69518FDD2B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC051B0F-F43C-43B0-A852-69518FDD2B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC051B0F-F43C-43B0-A852-69518FDD2B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC051B0F-F43C-43B0-A852-69518FDD2B56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F45DC740-8FC6-4423-90DE-47BD9B91682B} = {CBFC6510-4E83-4746-A2DE-0FFA1B0D6C93}
+		{AC051B0F-F43C-43B0-A852-69518FDD2B56} = {7152E2C4-565C-49EF-B819-BA7FFF9B3470}
+		{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF} = {CBFC6510-4E83-4746-A2DE-0FFA1B0D6C93}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED9334DB-DA80-4A1B-A38F-0DDF2B9F25EF}
+	EndGlobalSection
+EndGlobal
