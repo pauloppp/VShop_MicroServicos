@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
+// Resolução do problema de apresentação das casas decimais em Views/Models (Padrão americano 0,000.00)
+
 namespace VShop_MicroServico.ProdutoWEB.PontoFlutuante
 {
 	internal static class LoggerExtensions

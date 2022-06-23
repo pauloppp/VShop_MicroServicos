@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using VShop_MicroServico.ProdutoWEB.PontoFlutuante;
 
+// Resolução do problema de apresentação das casas decimais em Views/Models (Padrão americano 0,000.00)
+
 namespace Microsoft.AspNetCore.Mvc.ModelBinding
 {
 	public class CustomFloatingPointModelBinder : IModelBinder
