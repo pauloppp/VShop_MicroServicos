@@ -1,1 +1,4 @@
-Mini Projeto Padrão MicroServiços + Repositório + WebAPI
+#VShop_MicroServiços
+
+Mini Projeto Padrão MicroServiços / Repositório / WebAPI
+
