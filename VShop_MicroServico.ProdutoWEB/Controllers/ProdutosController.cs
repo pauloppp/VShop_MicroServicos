@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
 using VShop_MicroServico.ProdutoWEB.Models;
+using VShop_MicroServico.ProdutoWEB.Roles;
 using VShop_MicroServico.ProdutoWEB.Servicos.Interfaces;
 
 namespace VShop_MicroServico.ProdutoWEB.Controllers
@@ -40,6 +42,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // POST: ProdutosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             if (ModelState.IsValid)
@@ -72,6 +75,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // POST: ProdutosController/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(ProdutoViewModel produtoViewModel)
         {
             try
@@ -104,6 +108,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         }
 
         // GET: ProdutosController/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _produtoServico.FindProdutoById(id);
@@ -116,6 +121,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // POST: ProdutosController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
             try

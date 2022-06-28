@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using VShop_MicroServico.ProdutoWEB.PontoFlutuante;
@@ -25,6 +26,31 @@ builder.Services.AddHttpClient("ProdutoAPI", c =>
 builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
 builder.Services.AddScoped<ICategoriaServico, CategoriaServico>();
 
+
+// Adiciona Autenticação
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+})
+    .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
+    .AddOpenIdConnect("oidc", options =>
+    {
+        options.Authority = builder.Configuration["ServicoURI:IdentityServer"];
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.ClientId = "vshop";
+        options.ClientSecret = builder.Configuration["Client:Secret"];
+        options.ResponseType = "code";
+        options.ClaimActions.MapJsonKey("role", "role", "role");
+        options.ClaimActions.MapJsonKey("sub", "sub", "sub");
+        options.TokenValidationParameters.NameClaimType = "name";
+        options.TokenValidationParameters.RoleClaimType = "role";
+        options.Scope.Add("vshop");
+        options.SaveTokens = true;
+    }
+);
+
+
 var app = builder.Build();
 
 
@@ -41,7 +67,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); //Seguir ordem: 1 (Primeiro-Autentica).
+app.UseAuthorization();  //Seguir Ordem: 2 (Depois-Autoriza).
 
 app.MapControllerRoute(
     name: "default",

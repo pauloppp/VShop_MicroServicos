@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using VShop_MicroServico.ProdutoAPI.Roles;
 using VShop_MicroServicos.ProdutoAPI.Contexto;
 using VShop_MicroServicos.ProdutoAPI.DTOs;
 using VShop_MicroServicos.ProdutoAPI.Models;
@@ -14,6 +16,7 @@ namespace VShop_MicroServicos.ProdutoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriasController : ControllerBase
     {
         private readonly ICategoriaServico _categoriaServico;
@@ -96,6 +99,8 @@ namespace VShop_MicroServicos.ProdutoAPI.Controllers
 
         // DELETE: api/Categoria/5
         [HttpDelete("{id:int}")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles =Role.Admin)]
         public async Task<IActionResult> DeleteCategoria(int id)
         {
             var categoriaDTO = await _categoriaServico.GetCategoriaById(id);
