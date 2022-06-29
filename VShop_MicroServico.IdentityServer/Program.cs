@@ -1,7 +1,7 @@
 using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using VShop.IdentityServer.Configuration;
+using VShop_MicroServico.IdentityServer.Configuration;
 using VShop_MicroServico.IdentityServer.Data;
 using VShop_MicroServico.IdentityServer.SeedDataBase.Concretas;
 using VShop_MicroServico.IdentityServer.SeedDataBase.Interfaces;
@@ -37,7 +37,7 @@ builderIdentityServer.AddDeveloperSigningCredential();
 builder.Services.AddScoped<IDataBaseIdentityServerInitializer, DataBaseIdentityServerInitializer>();
 
 // Inclusão da lista de usuários para inicialização (Evita erro "Exception" inicial de AccountController)
-builderIdentityServer.AddTestUsers(new List<TestUser>());
+// builderIdentityServer.AddTestUsers(new List<TestUser>());
 
 var app = builder.Build();
 

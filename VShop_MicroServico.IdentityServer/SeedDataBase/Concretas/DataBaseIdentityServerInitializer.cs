@@ -1,7 +1,7 @@
 ﻿using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using VShop.IdentityServer.Configuration;
+using VShop_MicroServico.IdentityServer.Configuration;
 using VShop_MicroServico.IdentityServer.Data;
 using VShop_MicroServico.IdentityServer.SeedDataBase.Interfaces;
 
@@ -39,7 +39,7 @@ namespace VShop_MicroServico.IdentityServer.SeedDataBase.Concretas
                 };
 
                 //cria o usuário Admin e atribui a senha
-                IdentityResult resultAdmin = _userManager.CreateAsync(admin, "Numsey#2022").Result;
+                IdentityResult resultAdmin = _userManager.CreateAsync(admin, "Numsei@1234").Result;
                 if (resultAdmin.Succeeded)
                 {
                     //inclui o usuário admin ao perfil admin
@@ -75,7 +75,7 @@ namespace VShop_MicroServico.IdentityServer.SeedDataBase.Concretas
                 };
 
                 //cria o usuário Client e atribui a senha
-                IdentityResult resultClient = _userManager.CreateAsync(client, "Numsey#2022").Result;
+                IdentityResult resultClient = _userManager.CreateAsync(client, "Numsei@1234").Result;
                 //inclui o usuário Client ao perfil Client
                 if (resultClient.Succeeded)
                 {
@@ -120,7 +120,7 @@ namespace VShop_MicroServico.IdentityServer.SeedDataBase.Concretas
                 };
 
                 //cria o usuário Admin e atribui a senha
-                IdentityResult resultAdmin = _userManager.CreateAsync(admin, "Numsey#2022").Result;
+                IdentityResult resultAdmin = _userManager.CreateAsync(admin, "Numsei@1234").Result;
                 if (resultAdmin.Succeeded)
                 {
                     //inclui o usuário admin ao perfil admin
@@ -162,7 +162,7 @@ namespace VShop_MicroServico.IdentityServer.SeedDataBase.Concretas
                 };
 
                 //cria o usuário Client e atribui a senha
-                IdentityResult resultClient = _userManager.CreateAsync(client, "Numsey#2022").Result;
+                IdentityResult resultClient = _userManager.CreateAsync(client, "Numsei@1234").Result;
                 //inclui o usuário Client ao perfil Client
                 if (resultClient.Succeeded)
                 {

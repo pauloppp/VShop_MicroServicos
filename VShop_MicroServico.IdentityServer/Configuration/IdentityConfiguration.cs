@@ -1,20 +1,21 @@
 ﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
-namespace VShop.IdentityServer.Configuration;
-public class IdentityConfiguration
+namespace VShop_MicroServico.IdentityServer.Configuration
 {
-    public const string Admin = "Admin";
-    public const string Client = "Client";
+    public class IdentityConfiguration
+    {
+        public const string Admin = "Admin";
+        public const string Client = "Client";
 
-    public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>
+        public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>
       {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Email(),
                 new IdentityResources.Profile()
       };
 
-    public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>
+        public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>
       {
                 // vshop é aplicação web que vai acessar
                 // o IdentityServer para obter o token
@@ -24,7 +25,7 @@ public class IdentityConfiguration
                 new ApiScope(name: "delete", "Delete data."),
       };
 
-    public static IEnumerable<Client> Clients => new List<Client>
+        public static IEnumerable<Client> Clients => new List<Client>
        {
                //cliente genérico
                 new Client
@@ -39,8 +40,11 @@ public class IdentityConfiguration
                     ClientId = "vshop",
                     ClientSecrets = { new Secret("tutancamom@horus_#$%".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code, //via codigo
-                    RedirectUris = {"https://localhost:7165/signin-oidc"},//login
-                    PostLogoutRedirectUris = {"https://localhost:7165/signout-callback-oidc"},//logout
+                    
+                    // O parâmetro RedirectUris abaixo deve receber a URI do projeto "WEB, MVC ou MVC-CORE" que está tentando se logar.
+                    // ================================================================================================================================
+                    RedirectUris = {"https://localhost:7073/signin-oidc", "http://localhost:17980/signin-oidc"}, //login
+                    PostLogoutRedirectUris = {"https://localhost:7073/signout-callback-oidc", "http://localhost:17980/signout-callback-oidc"}, //logout
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -48,7 +52,9 @@ public class IdentityConfiguration
                         IdentityServerConstants.StandardScopes.Email,
                         "vshop"
                     }
+                    // ================================================================================================================================
                 }
        };
 
+    }
 }

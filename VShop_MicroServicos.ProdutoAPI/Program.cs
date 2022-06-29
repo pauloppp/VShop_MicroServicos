@@ -65,8 +65,8 @@ builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
 builder.Services.AddAuthentication("Bearer")
        .AddJwtBearer("Bearer", options =>
        {
-           options.Authority =
-             builder.Configuration["VShop.IdentityServer:ApplicationUrl"];
+           options.Authority = "https://localhost:7078";
+             //builder.Configuration["VShop.IdentityServer:ApplicationUrl"];
 
            options.TokenValidationParameters = new TokenValidationParameters
            {

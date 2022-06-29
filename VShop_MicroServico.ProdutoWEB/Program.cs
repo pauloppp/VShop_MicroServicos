@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(options =>
     .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
     .AddOpenIdConnect("oidc", options =>
     {
-        options.Authority = builder.Configuration["ServicoURI:IdentityServer"];
+        options.Authority = "https://localhost:7078"; //builder.Configuration["ServicoURI:IdentityServer"];
         options.GetClaimsFromUserInfoEndpoint = true;
         options.ClientId = "vshop";
         options.ClientSecret = builder.Configuration["Client:Secret"];
