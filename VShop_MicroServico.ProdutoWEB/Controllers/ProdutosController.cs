@@ -144,7 +144,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
             }
         }
 
-        // .......>
+        // .........>
         private async Task<string> GetAccessToken()
         {
             return await HttpContext.GetTokenAsync("access_token");
