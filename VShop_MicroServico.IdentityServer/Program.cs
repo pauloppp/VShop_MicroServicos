@@ -1,3 +1,4 @@
+using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using VShop_MicroServico.IdentityServer.Configuration;
 using VShop_MicroServico.IdentityServer.Data;
 using VShop_MicroServico.IdentityServer.SeedDataBase.Concretas;
 using VShop_MicroServico.IdentityServer.SeedDataBase.Interfaces;
+using VShop_MicroServico.IdentityServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,9 @@ builderIdentityServer.AddDeveloperSigningCredential();
 
 // Resolve Injeção de Dependência para a inicialização dos Usuários.
 builder.Services.AddScoped<IDataBaseIdentityServerInitializer, DataBaseIdentityServerInitializer>();
+
+// Resolve Injeção de DependÊncia para a adição do perfil dos Usuários.
+builder.Services.AddScoped<IProfileService, ProfileAppService>();
 
 // Inclusão da lista de usuários para inicialização (Evita erro "Exception" inicial de AccountController)
 // builderIdentityServer.AddTestUsers(new List<TestUser>());

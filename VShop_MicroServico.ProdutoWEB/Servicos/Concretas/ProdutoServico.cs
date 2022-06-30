@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using VShop_MicroServico.ProdutoWEB.Models;
 using VShop_MicroServico.ProdutoWEB.Servicos.Interfaces;
@@ -19,12 +20,16 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
-        public async Task<IEnumerable<ProdutoViewModel>> GetAllProdutos()
+        public async Task<IEnumerable<ProdutoViewModel>> GetAllProdutos(string token)
         {
             var client = _clientFactory.CreateClient("ProdutoAPI");
 
+            // Incluindo o Token no cabeçalho da requisição (RequestHeaders).
+            IncluirTokenAutorizacaoCabec(token, client);
+
             using (var response = await client.GetAsync(apiEndPoint))
             {
+                var tt = response.Content.ToString();
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -36,11 +41,16 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
                 }
             };
             return listaProdutosViewModel;
+
+            
         }
 
-        public async Task<ProdutoViewModel> FindProdutoById(int id)
+        public async Task<ProdutoViewModel> FindProdutoById(int id, string token)
         {
             var client = _clientFactory.CreateClient("ProdutoAPI");
+
+            // Incluindo o Token no cabeçalho da requisição (RequestHeaders).
+            IncluirTokenAutorizacaoCabec(token, client);
 
             using (var response = await client.GetAsync(apiEndPoint + "/" + id))
             {
@@ -57,9 +67,12 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
             return produtoViewModel;
         }
 
-        public async Task<ProdutoViewModel> CreateProduto(ProdutoViewModel produtoViewModel)
+        public async Task<ProdutoViewModel> CreateProduto(ProdutoViewModel produtoViewModel, string token)
         {
             var client = _clientFactory.CreateClient("ProdutoAPI");
+
+            // Incluindo o Token no cabeçalho da requisição (RequestHeaders).
+            IncluirTokenAutorizacaoCabec(token, client);
 
             StringContent content = new StringContent(JsonSerializer.Serialize(produtoViewModel), Encoding.UTF8, "application/json");
 
@@ -78,9 +91,12 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
             return produtoViewModel;
         }
 
-        public async Task<ProdutoViewModel> UpdateProduto(ProdutoViewModel produtoViewModel)
+        public async Task<ProdutoViewModel> UpdateProduto(ProdutoViewModel produtoViewModel, string token)
         {
             var client = _clientFactory.CreateClient("ProdutoAPI");
+
+            // Incluindo o Token no cabeçalho da requisição (RequestHeaders).
+            IncluirTokenAutorizacaoCabec(token, client);
 
             ProdutoViewModel produtoAtualizado = new ProdutoViewModel();
 
@@ -100,10 +116,13 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
         }
 
 
-        public async Task<bool> DeleteProdutoById(int id)
+        public async Task<bool> DeleteProdutoById(int id, string token)
         {
             var client = _clientFactory.CreateClient("ProdutoAPI");
-            
+
+            // Incluindo o Token no cabeçalho da requisição (RequestHeaders).
+            IncluirTokenAutorizacaoCabec(token, client);
+
             using (var response = await client.DeleteAsync(apiEndPoint + "/" + id))
             {
                 if (response.IsSuccessStatusCode)
@@ -113,6 +132,12 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
                 
             };
             return false;
+        }
+
+        
+        static void IncluirTokenAutorizacaoCabec(string token, HttpClient client)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
     }
 }

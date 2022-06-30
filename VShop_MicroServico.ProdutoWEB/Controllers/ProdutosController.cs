@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,7 +24,8 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // GET: ProdutosController
         public async Task<ActionResult<IEnumerable<ProdutoViewModel>>> Index()
         {
-            var result = await _produtoServico.GetAllProdutos();
+            var tokenAcesso = await GetAccessToken();
+            var result = await _produtoServico.GetAllProdutos(tokenAcesso);
             if (result is null)
             {
                 return View("Error");
@@ -34,8 +36,8 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // GET: ProdutosController/Create
         public async Task<IActionResult> Create()
         {
-
-            ViewBag.CategoriaId = new SelectList(await _categoriaServico.GetAllCategorias(), "Id", "Nome");
+            var tokenAcesso = await GetAccessToken();
+            ViewBag.CategoriaId = new SelectList(await _categoriaServico.GetAllCategorias(tokenAcesso), "Id", "Nome");
             return View();
         }
 
@@ -47,7 +49,8 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _produtoServico.CreateProduto(produtoViewModel);
+                var tokenAcesso = await GetAccessToken();
+                var result = await _produtoServico.CreateProduto(produtoViewModel, tokenAcesso);
                 if (result != null)
                 {
                     return RedirectToAction(nameof(Index));
@@ -55,7 +58,8 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
             }
             else
             {
-                ViewBag.CategoriaId = new SelectList(await _categoriaServico.GetAllCategorias(), "Id", "Nome");
+                var tokenAcesso = await GetAccessToken();
+                ViewBag.CategoriaId = new SelectList(await _categoriaServico.GetAllCategorias(tokenAcesso), "Id", "Nome");
             }
             return RedirectToAction(nameof(Index));
         }
@@ -63,9 +67,10 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // GET: ProdutosController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.CategoriaId = new SelectList(await _categoriaServico.GetAllCategorias(), "Id", "Nome");
+            var tokenAcesso = await GetAccessToken();
+            ViewBag.CategoriaId = new SelectList(await _categoriaServico.GetAllCategorias(tokenAcesso), "Id", "Nome");
 
-            var result = await _produtoServico.FindProdutoById(id);
+            var result = await _produtoServico.FindProdutoById(id, tokenAcesso);
 
             if (result is null) return View("Error");
 
@@ -82,18 +87,17 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
                     //CultureInfo culture = CultureInfo.CurrentCulture;
                     //Console.WriteLine("The current culture is {0} [{1}]",
-                    //                  culture.NativeName, culture.Name);
-
+                    //culture.NativeName, culture.Name);
 
                     var culture = CultureInfo.CurrentCulture; //new CultureInfo("pt-BR");
                     string convertPreco = ((double)produtoViewModel.Preco).ToString();
                     decimal preco = Convert.ToDecimal(convertPreco, culture);
                     produtoViewModel.Preco = preco;
 
-                    var result = await _produtoServico.UpdateProduto(produtoViewModel);
+                    var tokenAcesso = await GetAccessToken();
+                    var result = await _produtoServico.UpdateProduto(produtoViewModel, tokenAcesso);
                     if (result is not null)
                     {
                         return RedirectToAction(nameof(Index));
@@ -111,7 +115,8 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _produtoServico.FindProdutoById(id);
+            var tokenAcesso = await GetAccessToken();
+            var result = await _produtoServico.FindProdutoById(id, tokenAcesso);
 
             if (result is null) return View("Error");
 
@@ -126,7 +131,8 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         {
             try
             {
-                var result = await _produtoServico.DeleteProdutoById(id);
+                var tokenAcesso = await GetAccessToken();
+                var result = await _produtoServico.DeleteProdutoById(id, tokenAcesso);
 
                 if (!result) return View("Error");
 
@@ -136,6 +142,12 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
             {
                 throw new Exception();
             }
+        }
+
+        // .......>
+        private async Task<string> GetAccessToken()
+        {
+            return await HttpContext.GetTokenAsync("access_token");
         }
 
     }

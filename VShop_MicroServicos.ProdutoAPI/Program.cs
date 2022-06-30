@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -10,7 +11,7 @@ using VShop_MicroServicos.ProdutoAPI.Servicos.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// AddJsonOptions ==> Ignora a referência cícilica entre os objetos Produto_x_Categoria
+// AddJsonOptions ==> Ignora a referência cíclica entre os objetos Produto_x_Categoria
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -65,8 +66,7 @@ builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
 builder.Services.AddAuthentication("Bearer")
        .AddJwtBearer("Bearer", options =>
        {
-           options.Authority = "https://localhost:7078";
-             //builder.Configuration["VShop.IdentityServer:ApplicationUrl"];
+           options.Authority = builder.Configuration["VShop.IdentityServer:ApplicationUrl"]; 
 
            options.TokenValidationParameters = new TokenValidationParameters
            {
