@@ -7,9 +7,12 @@ Conceitos:
 ----------
 
 - MicroServiços
+
 - Repositório
-- WebAPI
+
+- WebAPI / FrontUI
   - Autenticação
   - Autorização
-  - IdentityServer
+
+- IdentityServer
 
