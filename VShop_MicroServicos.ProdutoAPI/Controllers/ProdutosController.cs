@@ -16,7 +16,7 @@ namespace VShop_MicroServicos.ProdutoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProdutosController : ControllerBase
     {
         private readonly IProdutoServico _produtoServico;
@@ -54,6 +54,7 @@ namespace VShop_MicroServicos.ProdutoAPI.Controllers
 
         // POST: api/Produto
         [HttpPost]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<Categoria>> PostProduto([FromBody] ProdutoDTO produtoDTO)
         {
             if (produtoDTO == null)
@@ -67,6 +68,7 @@ namespace VShop_MicroServicos.ProdutoAPI.Controllers
 
         // PUT: api/Produto/5
         [HttpPut]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> PutProduto([FromBody] ProdutoDTO produtoDTO)
         {
             if (produtoDTO is null)
@@ -80,7 +82,7 @@ namespace VShop_MicroServicos.ProdutoAPI.Controllers
 
         // DELETE: api/Produto/5
         [HttpDelete("{id:int}")]
-        [Authorize(Roles =Role.Admin)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> DeleteProduto(int id)
         {
             var produtoDTO = await _produtoServico.GetProdutosById(id);

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using VShop_MicroServico.ProdutoWEB.PontoFlutuante;
@@ -33,9 +34,27 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = "Cookies";
     options.DefaultChallengeScheme = "oidc";
 })
-    .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
+    .AddCookie("Cookies", c =>
+    {
+        c.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+        c.Events = new CookieAuthenticationEvents()
+        {
+            OnRedirectToAccessDenied = (context) =>
+            {
+                context.HttpContext.Response.Redirect(builder.Configuration["ServicoURI:IdentityServer"] + "/Account/AccessDenied");
+                return Task.CompletedTask;
+            }
+        };
+    })
     .AddOpenIdConnect("oidc", options =>
     {
+        options.Events.OnRemoteFailure = context =>
+        {
+            context.Response.Redirect("/");
+            context.HandleResponse();
+
+            return Task.FromResult(0);
+        };
         options.Authority = "https://localhost:7078"; //builder.Configuration["ServicoURI:IdentityServer"];
         options.GetClaimsFromUserInfoEndpoint = true;
         options.ClientId = "vshop";

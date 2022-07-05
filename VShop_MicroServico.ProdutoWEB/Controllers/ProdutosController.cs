@@ -10,6 +10,7 @@ using VShop_MicroServico.ProdutoWEB.Servicos.Interfaces;
 
 namespace VShop_MicroServico.ProdutoWEB.Controllers
 {
+    [Authorize(Roles = Role.Admin)]
     public class ProdutosController : Controller
     {
         private readonly IProdutoServico _produtoServico;
@@ -44,7 +45,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // POST: ProdutosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             if (ModelState.IsValid)
@@ -80,7 +81,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // POST: ProdutosController/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Edit(ProdutoViewModel produtoViewModel)
         {
             try
@@ -112,7 +113,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         }
 
         // GET: ProdutosController/Delete/5
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var tokenAcesso = await GetAccessToken();
@@ -126,7 +127,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         // POST: ProdutosController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
             try
