@@ -24,7 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
-            <th>
+            <th style="text-align:right">
                 @Html.DisplayNameFor(model => model.Preco)
             </th>
             @*<th>
@@ -56,7 +56,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
-                <td>
+                <td style="text-align:right">
+                    
+
                     @Html.DisplayFor(modelItem => item.Preco)
                 </td>
                 @*<td>
@@ -68,10 +70,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CategoriaId)
                     </td>*@
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                </td>
+            <td style="text-align:right">
+                <a asp-action="Edit" asp-route-id="@item.Id" title="Editar" class="btn btn-warning">
+                    <span class="fas fa-edit"></span>
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.Id" title="Deletar" class="btn btn-danger">
+                    <span class="fas fa-trash-alt"></span>
+                </a>
+                @*@Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+            </td>
             </tr>
         }
     </tbody>

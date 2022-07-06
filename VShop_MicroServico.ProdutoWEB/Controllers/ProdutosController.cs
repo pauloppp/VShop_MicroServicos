@@ -92,10 +92,19 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
                     //Console.WriteLine("The current culture is {0} [{1}]",
                     //culture.NativeName, culture.Name);
 
+
+
                     var culture = CultureInfo.CurrentCulture; //new CultureInfo("pt-BR");
                     string convertPreco = ((double)produtoViewModel.Preco).ToString();
                     decimal preco = Convert.ToDecimal(convertPreco, culture);
                     produtoViewModel.Preco = preco;
+
+
+                    ModelState.ClearValidationState(nameof(ProdutoViewModel));
+                    if (!TryValidateModel(produtoViewModel, nameof(ProdutoViewModel)))
+                    {
+                        //return Page();
+                    }
 
                     var tokenAcesso = await GetAccessToken();
                     var result = await _produtoServico.UpdateProduto(produtoViewModel, tokenAcesso);
