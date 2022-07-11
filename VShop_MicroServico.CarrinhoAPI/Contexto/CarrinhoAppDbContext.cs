@@ -10,10 +10,10 @@ namespace VShop_MicroServico.CarrinhoAPI.Contexto
         public DbSet<CarrinhoItem> CarrinhoItems { get; set; }
         public DbSet<CarrinhoCabec> CarrinhoCabecs { get; set; }
 
-        //Fluent API
+        // Fluent API
         protected override void OnModelCreating(ModelBuilder mb)
         {
-            //Produto
+            // Produto
             mb.Entity<Produto>().HasKey(p => p.Id);
             mb.Entity<Produto>().Property(p => p.Id).ValueGeneratedNever();
             mb.Entity<Produto>().Property(p => p.Nome).HasMaxLength(100).IsRequired();
@@ -22,7 +22,7 @@ namespace VShop_MicroServico.CarrinhoAPI.Contexto
             mb.Entity<Produto>().Property(p => p.CategoryNome).HasMaxLength(100).IsRequired();
             mb.Entity<Produto>().Property(p => p.Preco).HasPrecision(12, 2);
 
-            //CarrinhoCabec
+            // CarrinhoCabec
             mb.Entity<CarrinhoCabec>().Property(cc => cc.UserId).HasMaxLength(255).IsRequired();
             mb.Entity<CarrinhoCabec>().Property(cc => cc.CouponCode).HasMaxLength(100);
         }
