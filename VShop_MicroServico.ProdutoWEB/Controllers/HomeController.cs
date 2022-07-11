@@ -55,5 +55,13 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         {
             return SignOut("Cookies", "oidc");
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ProdutoViewModel>> Adicionar(ProdutoViewModel pvm)
+        {
+            var prod = pvm;
+            return View();
+        }
+ 
     }
 }
