@@ -8,11 +8,13 @@ Conceitos:
 
 - MicroServiços
 
+- DTOs/ViewModels
+
 - Repositório
 
 - WebAPI / FrontUI
-  - Autenticação
-  - Autorização
 
 - IdentityServer
+  - Autenticação
+  - Autorização
 
