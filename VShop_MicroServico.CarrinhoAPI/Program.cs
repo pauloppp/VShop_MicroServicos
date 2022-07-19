@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using VShop_MicroServico.CarrinhoAPI.Contexto;
+using VShop_MicroServico.CarrinhoAPI.Repositorios.Concretas;
+using VShop_MicroServico.CarrinhoAPI.Repositorios.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +56,9 @@ builder.Services.AddDbContext<CarrinhoAppDbContext>(options => options.UseMySql(
 
 // Mapeamento
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Injeção de Dependência
+builder.Services.AddScoped<ICarrinhoRepositorio, CarrinhoRepositorio>();
 
 // Políticas de segurança
 builder.Services.AddCors(options =>

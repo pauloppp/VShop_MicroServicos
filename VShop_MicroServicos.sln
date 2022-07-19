@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FRONT_END", "FRONT_END", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop_MicroServico.IdentityServer", "VShop_MicroServico.IdentityServer\VShop_MicroServico.IdentityServer.csproj", "{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VShop_MicroServico.CarrinhoAPI", "VShop_MicroServico.CarrinhoAPI\VShop_MicroServico.CarrinhoAPI.csproj", "{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop_MicroServico.CarrinhoAPI", "VShop_MicroServico.CarrinhoAPI\VShop_MicroServico.CarrinhoAPI.csproj", "{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
