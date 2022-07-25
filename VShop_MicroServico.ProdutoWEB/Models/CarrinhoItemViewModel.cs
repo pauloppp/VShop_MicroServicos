@@ -1,12 +1,11 @@
-﻿namespace VShop_MicroServico.CarrinhoAPI.DTOs
+﻿namespace VShop_MicroServico.ProdutoWEB.Models
 {
-    public class CarrinhoItemDTO
+    public class CarrinhoItemViewModel
     {
         public int Id { get; set; }
         public int Quantity { get; set; } = 1;
         public int ProdutoId { get; set; }
         public int CarrinhoCabecDTOId { get; set; }
-        public ProdutoDTO Produto { get; set; } = new ProdutoDTO();
-       
+        public ProdutoViewModel Produto { get; set; } = new ProdutoViewModel();
     }
 }

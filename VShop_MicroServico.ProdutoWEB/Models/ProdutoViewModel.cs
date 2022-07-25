@@ -24,6 +24,8 @@ namespace VShop_MicroServico.ProdutoWEB.Models
 
         public string? CategoriaNome { get; set; }
 
+        public int Quantidade { get; set; } = 1;
+
         [Display(Name = "Categorias")]
         public int CategoriaId { get; set; }
     }

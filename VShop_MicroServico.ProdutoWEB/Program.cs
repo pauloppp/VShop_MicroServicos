@@ -17,15 +17,25 @@ builder.Services.AddControllersWithViews(options =>
     // [...]
 });
 
-builder.Services.AddHttpClient("ProdutoAPI", c =>
+// HttpClientFactory... resolve
+builder.Services.AddHttpClient<IProdutoServico, ProdutoServico>("ProdutoAPI", c =>
 {
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ServicoURI:ProdutoAPI")); //Pega do arquivo appsettings.json
     //c.BaseAddress = new Uri("https://localhost:7143"); //Funciona também
 });
 
+// HttpClientFactory... resolve
+builder.Services.AddHttpClient<ICarrinhoServico, CarrinhoServico>("CarrinhoAPI", c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ServicoURI:CarrinhoAPI")); //Pega do arquivo appsettings.json
+    //c.BaseAddress = new Uri("https://localhost:7226"); //Funciona também
+});
+
+
 // Resolve Injeção de Dependência entre interfaces e classes concretas
 builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
 builder.Services.AddScoped<ICategoriaServico, CategoriaServico>();
+builder.Services.AddScoped<ICarrinhoServico, CarrinhoServico>();
 
 
 // Adiciona Autenticação

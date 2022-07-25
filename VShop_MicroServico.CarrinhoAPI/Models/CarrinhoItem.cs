@@ -7,6 +7,6 @@
         public int ProdutoId { get; set; }
         public int CarrinhoCabecId { get; set; }
         public Produto Produto { get; set; } = new Produto();
-        public CarrinhoCabec CarrinhoCabec { get; set; } = new CarrinhoCabec();
+        
     }
 }

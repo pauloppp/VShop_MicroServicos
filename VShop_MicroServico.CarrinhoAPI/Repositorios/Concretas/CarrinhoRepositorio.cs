@@ -44,7 +44,7 @@ namespace VShop_MicroServico.CarrinhoAPI.Repositorios.Concretas
 
                 if (qtdeItensCarrinho == 1)
                 {
-                    // Se quantidade = 1, então remove cabec pois, não existem mais ítens.
+                    // Se quantidade = 1, então remove cabec pois, não existem mais ítens após a exclusão do único ítem.
                     var carrinhoCabecRemove = await _context.CarrinhoCabecs.FirstOrDefaultAsync(c => c.Id == carrinhoItem.CarrinhoCabecId);
                     _context.CarrinhoCabecs.Remove(carrinhoCabecRemove);
                 }

@@ -11,11 +11,12 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProdutoServico _produtoServico;
-        public HomeController(ILogger<HomeController> logger,
-            IProdutoServico productService)
+        private readonly ICarrinhoServico _carrinhoServico;
+        public HomeController(ILogger<HomeController> logger, IProdutoServico produtoServico, ICarrinhoServico carrinhoServico)
         {
             _logger = logger;
-            _produtoServico = productService;
+            _produtoServico = produtoServico;
+            _carrinhoServico = carrinhoServico;
         }
 
         public async Task<IActionResult> Index()
@@ -29,6 +30,7 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<ProdutoViewModel>> ProductDetails(int id)
         {
             var product = await _produtoServico.FindProdutoById(id, string.Empty);
@@ -37,6 +39,42 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
                 return View("Error");
 
             return View(product);
+        }
+
+        [HttpPost]
+        [ActionName("ProductDetails")]
+        [Authorize]
+        public async Task<ActionResult<ProdutoViewModel>> ProductDetailsPost(ProdutoViewModel produtoVM)
+        {
+            var token = await HttpContext.GetTokenAsync("access_token");
+
+            CarrinhoViewModel carrinho = new()
+            {
+                CarrinhoCabec = new CarrinhoCabecViewModel
+                {
+                    UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value
+                }
+            };
+
+            CarrinhoItemViewModel carrinhoItem = new()
+            {
+                Quantity = produtoVM.Quantidade,
+                ProdutoId = produtoVM.Id,
+                Produto = await _produtoServico.FindProdutoById(produtoVM.Id, token)
+            };
+
+            List<CarrinhoItemViewModel> carrinhoItemsVM = new List<CarrinhoItemViewModel>();
+            carrinhoItemsVM.Add(carrinhoItem);
+            carrinho.CarrinhoItems = carrinhoItemsVM;
+
+            var result = await _carrinhoServico.AddItemToCarrinhoAsync(carrinho, token);
+
+            if (result is not null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(produtoVM);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -62,6 +100,6 @@ namespace VShop_MicroServico.ProdutoWEB.Controllers
             var prod = pvm;
             return View();
         }
- 
+
     }
 }
