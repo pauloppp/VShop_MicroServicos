@@ -18,8 +18,8 @@ namespace VShop_MicroServico.CarrinhoAPI.Contexto
             mb.Entity<Produto>().Property(p => p.Id).ValueGeneratedNever();
             mb.Entity<Produto>().Property(p => p.Nome).HasMaxLength(100).IsRequired();
             mb.Entity<Produto>().Property(p => p.Descricao).HasMaxLength(255).IsRequired();
-            mb.Entity<Produto>().Property(p => p.ImageURL).HasMaxLength(255).IsRequired();
-            mb.Entity<Produto>().Property(p => p.CategoryNome).HasMaxLength(100).IsRequired();
+            mb.Entity<Produto>().Property(p => p.ImagemURL).HasMaxLength(255).IsRequired();
+            mb.Entity<Produto>().Property(p => p.CategoriaNome).HasMaxLength(100).IsRequired();
             mb.Entity<Produto>().Property(p => p.Preco).HasPrecision(12, 2);
 
             // CarrinhoCabec

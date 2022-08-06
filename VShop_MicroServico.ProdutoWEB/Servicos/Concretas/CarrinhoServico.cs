@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using VShop_MicroServico.ProdutoWEB.Extensions;
 using VShop_MicroServico.ProdutoWEB.Models;
 using VShop_MicroServico.ProdutoWEB.Servicos.Interfaces;
 
@@ -10,7 +11,7 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly JsonSerializerOptions? _options;
-        private const string apiEndpoint = "/api/carrinho";
+        private const string apiEndpoint = "/api/Carrinho";
         private CarrinhoViewModel carrinhoVM = new CarrinhoViewModel();
 
         public CarrinhoServico(IHttpClientFactory clientFactory)
@@ -22,14 +23,18 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
         public async Task<CarrinhoViewModel> GetCarrinhoByUserIdAsync(string userId, string token)
         {
             var client = _clientFactory.CreateClient("CarrinhoAPI");
+            //client.PutTokenInHeaderAuthorization(token);
             PutTokenInHeaderAuthorization(token, client);
 
-            using (var response = await client.GetAsync($"{apiEndpoint}/getcarrinho/{userId}"))
+
+            using (var response = await client.GetAsync($"{apiEndpoint}/getcart/{userId}"))
+
             {
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     carrinhoVM = await JsonSerializer.DeserializeAsync<CarrinhoViewModel>(apiResponse, _options);
+                    var teste = "";
                 }
                 else
                 {
@@ -37,11 +42,13 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
                 }
             }
             return carrinhoVM;
+
         }
 
         public async Task<CarrinhoViewModel> AddItemToCarrinhoAsync(CarrinhoViewModel carrinhoVM, string token)
         {
             var client = _clientFactory.CreateClient("CarrinhoAPI");
+            //client.PutTokenInHeaderAuthorization(token);
             PutTokenInHeaderAuthorization(token, client);
 
             StringContent content = new StringContent(JsonSerializer.Serialize(carrinhoVM), Encoding.UTF8, "application/json");
@@ -64,7 +71,9 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
         public async Task<CarrinhoViewModel> UpdateCarrinhoAsync(CarrinhoViewModel carrinhoVM, string token)
         {
             var client = _clientFactory.CreateClient("CarrinhoAPI");
-            PutTokenInHeaderAuthorization(token, client);
+            client.PutTokenInHeaderAuthorization(token);
+            //PutTokenInHeaderAuthorization(token, client);
+
 
             CarrinhoViewModel carrinhoUpdated = new CarrinhoViewModel();
 
@@ -86,7 +95,8 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
         public async Task<bool> RemoveItemFromCarrinhoAsync(int carrinhoId, string token)
         {
             var client = _clientFactory.CreateClient("CarrinhoAPI");
-            PutTokenInHeaderAuthorization(token, client);
+            client.PutTokenInHeaderAuthorization(token);
+            //PutTokenInHeaderAuthorization(token, client);
 
             using (var response = await client.DeleteAsync($"{apiEndpoint}/deletecarrinho/" + carrinhoId))
             {
@@ -98,6 +108,7 @@ namespace VShop_MicroServico.ProdutoWEB.Servicos.Concretas
             return false;
         }
 
+        //Substituída por método de extensão em Extensions.
         private static void PutTokenInHeaderAuthorization(string token, HttpClient client)
         {
             client.DefaultRequestHeaders.Authorization =

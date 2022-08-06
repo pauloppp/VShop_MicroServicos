@@ -16,15 +16,15 @@ namespace VShop_MicroServico.CarrinhoAPI.Controllers
             _repositorio = repositorio;
         }
 
-        [HttpGet("getCarrinho/{id}")]
-        public async Task<ActionResult<CarrinhoDTO>> GetByUserId(string userId)
+        [HttpGet("getcart/{userid}")]
+        public async Task<ActionResult<CarrinhoDTO>> GetByUserId(string userid)
         {
-            var carrinhoDTO = await _repositorio.GetCarrinhoByUserIdAsync(userId);
+            var carrinhoDTO = await _repositorio.GetCarrinhoByUserIdAsync(userid);
             if (carrinhoDTO is null) return NotFound();
             return Ok(carrinhoDTO);
         }
 
-        [HttpPost("addCarrinho")]
+        [HttpPost("addcarrinho")]
         public async Task<ActionResult<CarrinhoDTO>> AdicionarCarrinho(CarrinhoDTO carrinhoDTO)
         {
             var carrinho = await _repositorio.AtualizarCarrinhoAsync(carrinhoDTO);
@@ -32,7 +32,7 @@ namespace VShop_MicroServico.CarrinhoAPI.Controllers
             return Ok(carrinhoDTO);
         }
 
-        [HttpPut("updateCarrinho")]
+        [HttpPut("updatecarrinho")]
         public async Task<ActionResult<CarrinhoDTO>> AtualizarCarrinho(CarrinhoDTO carrinhoDTO)
         {
             var carrinho = await _repositorio.AtualizarCarrinhoAsync(carrinhoDTO);
@@ -40,7 +40,7 @@ namespace VShop_MicroServico.CarrinhoAPI.Controllers
             return Ok(carrinhoDTO);
         }
 
-        [HttpDelete("deleteCarrinho/{id}")]
+        [HttpDelete("deletecarrinho/{id}")]
         public async Task<ActionResult<bool>> ExcluirCarrinho(int id)
         {
             var status = await _repositorio.ExcluirItemCarrinhoAsync(id);

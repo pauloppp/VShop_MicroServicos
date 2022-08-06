@@ -27,8 +27,8 @@ builder.Services.AddHttpClient<IProdutoServico, ProdutoServico>("ProdutoAPI", c 
 // HttpClientFactory... resolve
 builder.Services.AddHttpClient<ICarrinhoServico, CarrinhoServico>("CarrinhoAPI", c =>
 {
-    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ServicoURI:CarrinhoAPI")); //Pega do arquivo appsettings.json
-    //c.BaseAddress = new Uri("https://localhost:7226"); //Funciona também
+    //c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ServicoURI:CarrinhoAPI")); //Pega do arquivo appsettings.json
+    c.BaseAddress = new Uri("https://localhost:7226"); //Funciona também
 });
 
 

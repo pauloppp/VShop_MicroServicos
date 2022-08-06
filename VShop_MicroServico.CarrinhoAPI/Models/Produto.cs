@@ -7,7 +7,7 @@
         public decimal Preco { get; set; }
         public string Descricao { get; set; } = string.Empty;
         public long Estoque { get; set; }
-        public string ImageURL { get; set; } = string.Empty;
-        public string CategoryNome { get; set; } = string.Empty;
+        public string ImagemURL { get; set; } = string.Empty;
+        public string CategoriaNome { get; set; } = string.Empty;
     }
 }
