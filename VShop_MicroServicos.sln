@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop_MicroServico.Identity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop_MicroServico.CarrinhoAPI", "VShop_MicroServico.CarrinhoAPI\VShop_MicroServico.CarrinhoAPI.csproj", "{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VShop_MicroServico.DiscontoAPI", "VShop_MicroServico.DiscontoAPI\VShop_MicroServico.DiscontoAPI.csproj", "{9A09F59D-B244-4DF9-8B2F-90CF54C001E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A09F59D-B244-4DF9-8B2F-90CF54C001E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A09F59D-B244-4DF9-8B2F-90CF54C001E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A09F59D-B244-4DF9-8B2F-90CF54C001E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A09F59D-B244-4DF9-8B2F-90CF54C001E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{AC051B0F-F43C-43B0-A852-69518FDD2B56} = {7152E2C4-565C-49EF-B819-BA7FFF9B3470}
 		{0B3FE08A-A201-4512-BD47-5A5D9F43FEBF} = {CBFC6510-4E83-4746-A2DE-0FFA1B0D6C93}
 		{9D42BD4B-35E5-4BDF-933C-BA908C1F5FFA} = {CBFC6510-4E83-4746-A2DE-0FFA1B0D6C93}
+		{9A09F59D-B244-4DF9-8B2F-90CF54C001E9} = {CBFC6510-4E83-4746-A2DE-0FFA1B0D6C93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED9334DB-DA80-4A1B-A38F-0DDF2B9F25EF}
